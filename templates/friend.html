@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>缘分指数 · 成片档案</title>
+<style>
+:root {
+  --void: #141110;
+  --void-2: #1C1815;
+  --amber: #E0A03C;
+  --amber-soft: rgba(224,160,60,.14);
+  --cream: #F2E8D5;
+  --cream-dim: #A89B85;
+  --red: #C44A35;
+  --mono: "SF Mono","Menlo","Consolas","Courier New",monospace;
+  --serif: "Songti SC","STSong","Noto Serif SC",serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: var(--mono);
+  background: #0C0B0A;
+  min-height:100vh; padding:0;
+  display:flex; justify-content:center;
+}
+.stage {
+  width: 900px; background: var(--void); color: var(--cream);
+  position: relative; overflow:hidden;
+  box-shadow: 0 14px 60px rgba(0,0,0,.7);
+}
+.stage::before {
+  content:""; position:absolute; inset:0; z-index:20; pointer-events:none; opacity:.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.osd {
+  display:flex; justify-content:space-between; align-items:center;
+  padding: 14px 26px; font-size: 11px; letter-spacing: .18em; color: var(--cream-dim);
+  background: linear-gradient(180deg, rgba(224,160,60,.06), transparent);
+  border-bottom: 1px solid rgba(224,160,60,.25);
+}
+.osd .rec { color: var(--red); font-weight:700; letter-spacing:.3em; animation: blink 1.6s steps(1) infinite; }
+.osd .tc { color: var(--amber); }
+@keyframes blink { 50% { opacity:.25; } }
+.title-card { text-align:center; padding: 64px 40px 46px; position:relative; }
+.title-card .prod { font-size:11px; letter-spacing:.55em; color:var(--cream-dim); text-indent:.55em; }
+.title-card h1 {
+  font-family: var(--serif); font-weight:700;
+  font-size: clamp(2.6rem, 1.8rem + 3.2vw, 4rem);
+  letter-spacing: .3em; text-indent:.3em; margin: 22px 0 10px;
+  color: var(--cream); text-shadow: 0 0 40px rgba(224,160,60,.35);
+}
+.title-card .sub-en { font-size: 11px; letter-spacing: .4em; color: var(--amber); text-indent:.4em; }
+.title-card .meta { margin-top: 26px; font-size: 11px; color: var(--cream-dim); letter-spacing: .14em; line-height: 2.2; }
+.cast { padding: 30px 26px 8px; }
+.cast-head {
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding-bottom: 12px; border-bottom: 1px solid rgba(224,160,60,.4); margin-bottom: 6px;
+}
+.cast-head .ch-title { font-size: 12px; letter-spacing: .5em; color: var(--amber); font-weight:700; text-indent:.5em; }
+.cast-head .ch-note { font-size: 10px; color: var(--cream-dim); letter-spacing: .2em; }
+.cast-row { display:grid; grid-template-columns: 1.2fr 1fr .9fr; padding: 13px 4px; border-bottom: 1px solid rgba(242,232,213,.07); }
+.cast-row .c-name { font-size: 15px; letter-spacing:.06em; }
+.cast-row .c-name .role { font-family: var(--serif); font-size: 11px; color: var(--amber); margin-left: 10px; letter-spacing:.1em; }
+.cast-row .c-char { font-family: var(--serif); font-size: 12.5px; color: var(--cream-dim); letter-spacing:.1em; }
+.cast-row .c-data { font-size: 11px; color: var(--cream-dim); text-align:right; letter-spacing:.06em; line-height:1.9; }
+.cast-row .c-data b { color: var(--cream); font-weight:600; }
+.levels { padding: 22px 26px 6px; }
+.level { display:grid; grid-template-columns: 96px 1fr 64px; align-items:center; gap: 18px; padding: 7.5px 0; position:relative; z-index:1; }
+.level:hover { z-index:10; }
+.level .l-note {
+  position:absolute; left:0; top:calc(100% + 5px); width:100%; z-index:30;
+  background: rgba(8,8,8,.97);
+  border:1px solid rgba(224,160,60,.4);
+  box-shadow: 0 10px 28px rgba(0,0,0,.65);
+  color: var(--cream-dim);
+  font-size:10.5px; line-height:1.8; letter-spacing:.05em;
+  padding: 9px 13px;
+  opacity:0; pointer-events:none;
+  transform: translateY(-3px);
+  transition: opacity .16s ease, transform .16s ease;
+}
+.level:hover .l-note, .level:focus-within .l-note { opacity:1; pointer-events:auto; transform: translateY(0); }
+.level .l-name { font-size: 11.5px; letter-spacing: .3em; color: var(--cream-dim); text-indent:.3em; }
+.level .l-track { height: 16px; background: rgba(242,232,213,.05); position:relative; overflow:hidden; }
+.level .l-fill { height:100%; background: linear-gradient(90deg, rgba(224,160,60,.35), var(--amber)); box-shadow: 0 0 14px rgba(224,160,60,.25); }
+.level.l-hot .l-fill { background: linear-gradient(90deg, rgba(196,74,53,.5), var(--red)); box-shadow: 0 0 14px rgba(196,74,53,.3); }
+.level .l-val { text-align:right; font-size: 13px; color: var(--cream); font-variant-numeric: tabular-nums; }
+.level .l-val small { font-size: 9.5px; color: var(--cream-dim); }
+.fate-card {
+  margin: 26px 26px 6px; padding: 22px 26px;
+  background: var(--void-2);
+  border: 1px solid rgba(224,160,60,.3);
+  border-left: 3px solid var(--amber);
+  position: relative;
+  display: grid; grid-template-columns: auto 1fr; gap: 26px; align-items: center;
+}
+.fate-card::after {
+  content:""; position:absolute; top:-7px; bottom:-7px; left:10px; width:2px;
+  background-image: radial-gradient(circle, var(--void) 2px, transparent 2.5px);
+  background-size: 8px 8px; opacity:.8;
+}
+.fate-num { font-size: 56px; font-weight:700; color: var(--amber); line-height:1; letter-spacing:-.02em; font-variant-numeric: tabular-nums; text-shadow: 0 0 30px rgba(224,160,60,.4); }
+.fate-num small { font-size: 13px; letter-spacing: .2em; margin-left: 6px; }
+.fate-body .f-line1 { font-family: var(--serif); font-size: 16px; letter-spacing: .1em; }
+.fate-body .f-line2 { font-size: 11px; color: var(--cream-dim); margin-top: 8px; line-height: 1.9; letter-spacing: .06em; }
+.notes { padding: 18px 26px 4px; }
+.note { padding: 12px 0 12px 30px; position: relative; }
+.note::before { content:"▸"; position:absolute; left:6px; color: var(--amber); font-size: 12px; top: 14px; }
+.note .n-tag { font-size: 9.5px; letter-spacing:.3em; color: var(--amber); display:block; margin-bottom:6px; }
+.note p { font-family: var(--serif); font-size: 13.5px; line-height: 2.05; color: var(--cream); opacity:.9; text-wrap:pretty; }
+.end-roll {
+  margin-top: 22px; padding: 20px 26px 30px;
+  border-top: 1px solid rgba(224,160,60,.3);
+  display:flex; justify-content:space-between; font-size: 10px; letter-spacing: .2em; color: var(--cream-dim);
+}
+.end-roll .cr { color: var(--amber); }
+@media (max-width: 680px) {
+  .stage { width: 100%; }
+  .cast-row { grid-template-columns: 1fr; gap:6px; }
+  .cast-row .c-data { text-align:left; }
+  .level { grid-template-columns: 72px 1fr 56px; gap:10px; }
+  .fate-card { grid-template-columns: 1fr; }
+  .fate-num { font-size: 44px; }
+}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="osd">
+    <span class="rec">● REC</span>
+    <span>MATCHMAKING · 双人配对档案</span>
+    <span class="tc">TC @@TC@@</span>
+  </div>
+
+  <div class="title-card">
+    <div class="prod">@@MY_NICK@@工作室 · 出品</div>
+    <h1>@@TITLE_CN@@</h1>
+    <div class="sub-en">@@TITLE_EN@@</div>
+    <div class="meta">
+      主演：@@MY_NICK@@ · @@OTHER_NICK@@<br>
+      采样：@@MY_COUNT@@ 条 × @@OTHER_COUNT@@ 条 · 覆盖 @@SPAN@@<br>
+      综合得分：@@TOTAL@@ / 100
+    </div>
+  </div>
+
+  <div class="cast">
+    <div class="cast-head">
+      <span class="ch-title">卡 司</span>
+      <span class="ch-note">CAST · 数据档案</span>
+    </div>
+    <div class="cast-row">
+      <div class="c-name">@@MY_NICK@@<span class="role">饰 · @@MY_CHAR@@</span></div>
+      <div class="c-char">@@MY_ROLE@@ · @@MY_RHYTHM@@</div>
+      <div class="c-data">日均 @@MY_DAILY@@ 条 · @@MY_LEN@@ 字 · 原创 @@MY_ORIG@@%</div>
+    </div>
+    <div class="cast-row">
+      <div class="c-name">@@OTHER_NICK@@<span class="role">饰 · @@OTHER_CHAR@@</span></div>
+      <div class="c-char">@@OTHER_ROLE@@ · @@OTHER_RHYTHM@@</div>
+      <div class="c-data">日均 @@OTHER_DAILY@@ 条 · @@OTHER_LEN@@ 字 · 原创 @@OTHER_ORIG@@%</div>
+    </div>
+  </div>
+
+  <div class="levels">
+    @@DIMS@@
+  </div>
+
+  <div class="fate-card">
+    <div class="fate-num">@@FATE_DR@@<small>次直接转发</small></div>
+    <div class="fate-body">
+      <div class="f-line1">@@FATE_LINE1@@</div>
+      <div class="f-line2">@@FATE_LINE2@@</div>
+    </div>
+  </div>
+
+  <div class="notes">
+    @@ADVS@@
+  </div>
+
+  <div class="end-roll">
+    <span>数据源 · 微博公开接口（采样 @@DATE_SHORT@@）</span>
+    <span class="cr">© @@MY_NICK@@ · 仅供娱乐 · THE END</span>
+  </div>
+</div>
+</body>
+</html>

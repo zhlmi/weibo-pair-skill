@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>合作评估报告 · 商务版</title>
+<style>
+:root {
+  --bg: #FAFAF7;
+  --ink: #17150F;
+  --ink-2: #4A463C;
+  --ink-3: #8A8577;
+  --line: #E3E0D6;
+  --line-strong: #17150F;
+  --accent: #B23A2C;
+  --accent-soft: #F3E4DF;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: "PingFang SC","Helvetica Neue","Noto Sans SC",sans-serif;
+  background: #EDEAE3;
+  min-height:100vh; padding:48px 16px;
+  display:flex; justify-content:center;
+}
+.sheet {
+  width: 860px; background: var(--bg); color: var(--ink);
+  box-shadow: 0 10px 44px rgba(23,21,15,.18);
+  padding: 0 56px 44px;
+}
+.topline {
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding: 26px 0 14px; border-bottom: 2.5px solid var(--line-strong);
+  font-size: 11px; letter-spacing: .22em; color: var(--ink-3);
+}
+.topline .mag { font-weight:700; color: var(--ink); font-size:13px; letter-spacing:.35em; }
+.topline .mag em { font-style:normal; color: var(--accent); }
+.topline .vol { letter-spacing:.18em; }
+.hero { padding: 44px 0 36px; border-bottom: 1px solid var(--line); }
+.hero .kicker { font-size:12px; letter-spacing:.5em; color:var(--accent); font-weight:700; margin-bottom:16px; text-indent:.5em; }
+.hero h1 { font-family:"Songti SC","STSong","Noto Serif SC",serif; font-weight:700; font-size: clamp(2.4rem, 1.6rem + 3vw, 3.6rem); letter-spacing:.06em; line-height:1.25; }
+.hero .lede { margin-top:16px; font-size:14.5px; line-height:2; color:var(--ink-2); max-width: 52em; text-wrap:pretty; }
+.hero .lede b { color: var(--ink); }
+.grid2 { display:grid; grid-template-columns: 1fr 1fr; gap: 0 48px; padding: 30px 0 10px; }
+.col-title {
+  font-size: 11px; letter-spacing:.4em; color:var(--ink-3); font-weight:700;
+  padding-bottom:10px; margin-bottom:14px; border-bottom:1px solid var(--line);
+}
+.profile .p-name { font-size:22px; font-weight:700; letter-spacing:.02em; }
+.profile .p-role { font-size:11.5px; color:var(--ink-3); letter-spacing:.2em; margin:4px 0 14px; }
+.profile dl { display:grid; grid-template-columns: 72px 1fr; row-gap:8px; font-size:13px; }
+.profile dt { color:var(--ink-3); letter-spacing:.12em; }
+.profile dd { color:var(--ink); font-weight:600; font-variant-numeric: tabular-nums; }
+.profile dd .thin { font-weight:400; color:var(--ink-3); }
+.dims { padding: 6px 0 30px; }
+.dim { display:grid; grid-template-columns: 84px 1fr 56px; align-items:center; gap:18px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.dim:first-child { border-top: 1px solid var(--line); }
+.dim .d-name { font-size:13.5px; font-weight:700; letter-spacing:.18em; }
+.dim .d-track { position:relative; height: 10px; background: var(--accent-soft); }
+.dim .d-fill { position:absolute; left:0; top:0; bottom:0; background: var(--ink); }
+.dim.dim-fate .d-fill { background: var(--accent); }
+.dim .d-pct { text-align:right; font-size:15px; font-weight:700; font-variant-numeric: tabular-nums; }
+.dim .d-pct small { font-size:10.5px; color:var(--ink-3); font-weight:400; }
+.dim .d-note { grid-column: 2 / -1; font-size: 11.5px; color: var(--ink-3); letter-spacing:.03em; margin-top:-4px; }
+.fate-focus { border-top: 2.5px solid var(--line-strong); padding: 26px 0 8px; display:grid; grid-template-columns: 1fr auto; gap:40px; align-items:start; }
+.fate-focus h3 { font-size:12px; letter-spacing:.4em; color:var(--accent); font-weight:700; margin-bottom:18px; text-indent:.4em; }
+.fate-stats { display:flex; gap: 44px; }
+.fstat .num { font-size: clamp(2.2rem, 1.4rem + 2.6vw, 3.4rem); font-weight:700; line-height:1; font-variant-numeric: tabular-nums; letter-spacing:-.01em; }
+.fstat .num sup { font-size:14px; font-weight:500; color:var(--ink-3); margin-left:4px; letter-spacing:.08em; }
+.fstat .label { margin-top:8px; font-size:11px; color:var(--ink-3); letter-spacing:.2em; }
+.fstat.f-main .num { color: var(--accent); }
+.verdict-block { text-align:right; max-width: 240px; }
+.verdict-block .v-line { font-family:"Songti SC",serif; font-size:17px; font-weight:700; letter-spacing:.08em; line-height:1.9; }
+.verdict-block .v-sub { font-size:11px; color:var(--ink-3); margin-top:8px; line-height:1.9; letter-spacing:.05em; }
+.advice { margin-top: 34px; border-top: 1px solid var(--line); padding-top: 20px; display: grid; grid-template-columns: 46px 1fr; gap: 6px 18px; }
+.advice .a-num { font-family:"Songti SC",serif; font-size:26px; font-weight:700; color: var(--accent); line-height:1.2; }
+.advice p { font-size: 13.5px; line-height: 2; color: var(--ink-2); text-wrap: pretty; }
+.footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--line); display:flex; justify-content:space-between; font-size:10px; letter-spacing:.18em; color:var(--ink-3); }
+@media (max-width: 680px) {
+  .sheet { padding: 0 24px 32px; }
+  .grid2 { grid-template-columns: 1fr; gap: 26px; }
+  .fate-focus { grid-template-columns: 1fr; }
+  .fate-stats { gap: 28px; }
+  .verdict-block { text-align:left; max-width:none; }
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="topline">
+    <span class="mag">合 作 评 估<em>·</em>PARTNERSHIP</span>
+    <span class="vol">VOL.@@VOL@@ · @@DATE_SHORT@@</span>
+  </div>
+
+  <div class="hero">
+    <div class="kicker">COLLABORATION REPORT · 双人评估</div>
+    <h1>@@HERO_TITLE@@</h1>
+    <div class="lede">@@LEDE@@</div>
+  </div>
+
+  <div class="grid2">
+    <div class="profile">
+      <div class="col-title">壹</div>
+      <div class="p-name">@@MY_NICK@@</div>
+      <div class="p-role">@@MY_ROLE@@</div>
+      <dl>
+        <dt>活跃</dt><dd>@@MY_PEAKS@@ 时 <span class="thin">@@MY_RHYTHM@@</span></dd>
+        <dt>话题</dt><dd>@@MY_TOPICS@@</dd>
+        <dt>情绪</dt><dd>@@MY_MOOD@@ <span class="thin">原创率 @@MY_ORIG@@%</span></dd>
+        <dt>产出</dt><dd>日均 @@MY_DAILY@@ 条 · 均长 @@MY_LEN@@ 字</dd>
+      </dl>
+    </div>
+    <div class="profile">
+      <div class="col-title">贰</div>
+      <div class="p-name">@@OTHER_NICK@@</div>
+      <div class="p-role">@@OTHER_ROLE@@</div>
+      <dl>
+        <dt>活跃</dt><dd>@@OTHER_PEAKS@@ 时 <span class="thin">@@OTHER_RHYTHM@@</span></dd>
+        <dt>话题</dt><dd>@@OTHER_TOPICS@@</dd>
+        <dt>情绪</dt><dd>@@OTHER_MOOD@@ <span class="thin">原创率 @@OTHER_ORIG@@%</span></dd>
+        <dt>产出</dt><dd>日均 @@OTHER_DAILY@@ 条 · 均长 @@OTHER_LEN@@ 字</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="dims">
+    @@DIMS@@
+  </div>
+
+  <div class="fate-focus">
+    <div>
+      <h3>互 动 深 度</h3>
+      <div class="fate-stats">
+        <div class="fstat f-main"><div class="num">@@FATE_DR@@<sup>次</sup></div><div class="label">直接转发</div></div>
+        <div class="fstat"><div class="num">@@FATE_CH@@<sup>条</sup></div><div class="label">转发链共现</div></div>
+        <div class="fstat"><div class="num">@@FATE_RATIO@@<sup>×</sup></div><div class="label">输出量比</div></div>
+      </div>
+    </div>
+    <div class="verdict-block">
+      <div class="v-line">@@V_LINE@@</div>
+      <div class="v-sub">@@V_SUB@@</div>
+    </div>
+  </div>
+
+  @@ADVS@@
+
+  <div class="footer">
+    <span>数据源 · 微博公开接口（采样 @@MY_COUNT@@ 条 × @@OTHER_COUNT@@ 条）</span>
+    <span>圈子兼容为降级估算 · 仅供娱乐</span>
+  </div>
+</div>
+</body>
+</html>

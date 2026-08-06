@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.pyo
+/pair_*.json
+/pair_login_uid.json
+.venv/
+*.egg-info/

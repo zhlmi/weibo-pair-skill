@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>面相星盘 · @@NICKNAME@@</title>
+<style>
+  :root{
+    --night:#0A0F1E; --night-2:#0E1528; --star:#E8ECF5; --gold:#D4AF37; --gold-dim:#8A7430;
+    --cyan:#7EB6E0; --cyan-dim:#3E5F7E; --ink-line:rgba(212,175,55,.28);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:radial-gradient(ellipse at 50% 30%, #101A33 0%, var(--night) 60%);
+    min-height:100vh; padding:44px 24px; display:flex; justify-content:center; align-items:center;
+    font-family:"Songti SC","Noto Serif SC","STSong",serif; color:var(--star);
+    overflow-x:hidden;
+  }
+  .stars{position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.6;}
+  /* 星点闪烁 */
+  .stars circle{animation:twinkle var(--tw,4s) ease-in-out infinite;}
+  .stars circle:nth-child(2n){--tw:3.2s; animation-delay:.7s;}
+  .stars circle:nth-child(3n){--tw:5.6s; animation-delay:1.5s;}
+  .stars circle:nth-child(5n){--tw:7.2s; animation-delay:2.2s;}
+  @keyframes twinkle{0%,100%{opacity:.2;}50%{opacity:.9;}}
+
+  .panel{
+    width:1120px; max-width:100%; position:relative; z-index:1;
+    background:linear-gradient(180deg, rgba(14,21,40,.7), rgba(10,15,30,.9));
+    border:1px solid rgba(212,175,55,.25); border-radius:2px;
+    box-shadow:0 30px 90px rgba(0,0,0,.6), inset 0 0 120px rgba(62,95,126,.12);
+    padding:48px 56px 42px;
+    animation:panelIn 1.2s cubic-bezier(.22,.61,.36,1) both;
+  }
+  @keyframes panelIn{from{opacity:0; transform:translateY(22px);}to{opacity:1; transform:none;}}
+
+  .head{display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1px solid var(--ink-line); padding-bottom:16px; margin-bottom:36px;}
+  .head .t1{font-size:30px; letter-spacing:.5em; color:var(--gold);}
+  .head .t2{font-size:11px; letter-spacing:.4em; color:var(--cyan-dim); margin-top:8px; text-transform:uppercase;}
+  .head .who{text-align:right;}
+  .head .who .n{font-size:17px; letter-spacing:.2em;}
+  .head .who .m{font-size:10.5px; color:var(--cyan-dim); letter-spacing:.2em; margin-top:5px;}
+  .main{display:grid; grid-template-columns: 1.1fr 1fr; gap:48px; align-items:center;}
+  /* 罗盘 */
+  .wheel-anim{animation:wheelIn 1.6s cubic-bezier(.22,.61,.36,1) .25s both;}
+  .wheel-wrap{position:relative; aspect-ratio:1; max-width:480px; margin:0 auto;
+    transition:transform .22s ease-out; will-change:transform;}
+  @keyframes wheelIn{from{opacity:0; transform:scale(.82);}to{opacity:1; transform:scale(1);}}
+  .wheel{position:absolute; inset:0; border-radius:50%;}
+  /* 环旋转：外层慢转，内层反向，天象仪器感 */
+  .ring-1{inset:0; border:1px solid var(--ink-line); animation:spin 90s linear infinite;}
+  .ring-2{inset:6%; border:1px dashed rgba(212,175,55,.35); animation:spin 60s linear infinite reverse;}
+  .ring-3{inset:16%; border:1px solid rgba(126,182,224,.35); animation:spin 240s linear infinite;}
+  .ring-4{inset:26%; border:1px dashed rgba(126,182,224,.22); animation:spin 120s linear infinite reverse;}
+  @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  .center{position:absolute; inset:37%; border-radius:50%; border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; flex-direction:column; background:radial-gradient(circle, rgba(212,175,55,.08), transparent 70%);
+    animation:pulse 4.6s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{box-shadow:0 0 16px rgba(212,175,55,.10);}50%{box-shadow:0 0 38px rgba(212,175,55,.32);}}
+  .center .c1{font-size:12px; letter-spacing:.4em; color:var(--gold);}
+  .center .c2{font-size:8px; letter-spacing:.06em; color:var(--cyan-dim); margin-top:5px; white-space:nowrap;}
+  /* 七相宫位：轻微呼吸浮动 */
+  .house{position:absolute; width:150px; text-align:center; transform:translateX(-50%); animation:floaty 7s ease-in-out infinite;}
+  .house:nth-child(odd){animation-delay:1.4s;}
+  .house:nth-child(3n){animation-duration:8.4s;}
+  @keyframes floaty{0%,100%{margin-top:0;}50%{margin-top:-4px;}}
+  .house .h-name{font-size:10px; letter-spacing:.45em; color:var(--cyan); margin-bottom:4px;}
+  .house .h-tag{font-size:14px; letter-spacing:.14em; color:var(--star);}
+  .house .h-tag b{color:var(--gold); font-weight:600;}
+  .house .h-val{font-size:9px; color:var(--cyan); margin-top:3px; letter-spacing:.1em;}
+  .h1{left:50%; top:calc(15% - 28px);}      /* 顶 · 额相 */
+  .h2{left:77.4%; top:calc(28.2% - 28px);}   /* 眼相 */
+  .h3{left:84.1%; top:calc(57.8% - 28px);}   /* 气色 */
+  .h4{left:65.6%; top:calc(81.3% - 28px);}   /* 口相 */
+  .h5{left:35.8%; top:calc(81.3% - 28px);}   /* 骨相 */
+  .h6{left:16.1%; top:calc(58.8% - 28px);}   /* 手相 */
+  .h7{left:22%; top:calc(29% - 28px);}       /* 眉相 */
+  .spokes{position:absolute; inset:0; opacity:.35; animation:spin 240s linear infinite;}
+  .spokes line{stroke:rgba(126,182,224,.4); stroke-width:.6;}
+  /* 判词 */
+  .oracle{padding:6px 0;}
+  .oracle .ot{font-size:11px; letter-spacing:.55em; color:var(--gold); margin-bottom:30px;}
+  .oracle .o-main{font-size:17px; line-height:2.3; letter-spacing:.12em; text-align:justify;}
+  .oracle .o-main .hl{color:var(--gold);}
+  .oracle .stars-line{display:flex; gap:6px; margin:26px 0; align-items:center;}
+  .oracle .stars-line .dot{width:5px; height:5px; border-radius:50%; background:var(--cyan); opacity:.6; animation:twinkle 3.6s ease-in-out infinite;}
+  .oracle .stars-line .dot.g{background:var(--gold); animation-duration:4.4s;}
+  .oracle .o-data{display:grid; grid-template-columns:1fr 1fr; gap:10px 26px; margin-top:26px; padding-top:20px; border-top:1px solid var(--ink-line);}
+  .oracle .d-item{display:flex; justify-content:space-between; font-size:11.5px; letter-spacing:.1em; color:var(--cyan-dim);}
+  .oracle .d-item b{color:var(--star); font-weight:500; font-family:ui-monospace,Menlo,monospace;}
+  .oracle .fortune{margin-top:26px; border:1px solid rgba(212,175,55,.4); padding:18px 22px; position:relative;}
+  .oracle .fortune::before{content:"天機"; position:absolute; top:-9px; left:14px; background:var(--night-2); padding:0 10px; font-size:10px; letter-spacing:.4em; color:var(--gold);}
+  .oracle .fortune p{font-size:12.5px; line-height:2.2; color:var(--star);}
+  .foot{margin-top:34px; display:flex; justify-content:space-between; font-size:10px; color:var(--cyan-dim); letter-spacing:.2em; border-top:1px solid var(--ink-line); padding-top:16px;}
+
+  /* ---------- 手机响应式 ---------- */
+  @media (max-width: 760px){
+    body{padding:20px 14px;}
+    .panel{padding:26px 18px 24px;}
+    .head{flex-direction:column; align-items:flex-start; gap:12px; margin-bottom:26px;}
+    .head .t1{font-size:21px; letter-spacing:.4em;}
+    .head .who{text-align:left;}
+    .main{grid-template-columns:1fr; gap:36px;}
+    .wheel-wrap{max-width:340px;}
+    .house{width:118px; transform:translateX(-50%);}
+    .house .h-name{font-size:8.5px; letter-spacing:.3em;}
+    .house .h-tag{font-size:11.5px;}
+    .house .h-val{font-size:8px;}
+    .center{inset:33%;}
+    .center .c2{font-size:7px;}
+    .oracle .ot{margin-bottom:18px;}
+    .oracle .o-main{font-size:14.5px; line-height:2.15;}
+    .oracle .o-data{gap:8px 16px;}
+    .oracle .fortune p{font-size:12px;}
+    .foot{flex-direction:column; gap:6px; align-items:flex-start;}
+  }
+  @media (max-width: 400px){
+    .house{width:104px; transform:translateX(-50%);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+<svg class="stars" width="100%" height="100%">
+  <circle cx="8%" cy="14%" r="1.2" fill="#E8ECF5"/><circle cx="22%" cy="6%" r=".8" fill="#E8ECF5"/><circle cx="35%" cy="20%" r="1" fill="#D4AF37"/><circle cx="48%" cy="9%" r=".7" fill="#E8ECF5"/><circle cx="61%" cy="16%" r="1.1" fill="#E8ECF5"/><circle cx="74%" cy="7%" r=".9" fill="#7EB6E0"/><circle cx="88%" cy="12%" r="1.2" fill="#E8ECF5"/><circle cx="94%" cy="30%" r=".8" fill="#E8ECF5"/><circle cx="12%" cy="38%" r="1" fill="#7EB6E0"/><circle cx="28%" cy="32%" r=".8" fill="#E8ECF5"/><circle cx="55%" cy="28%" r="1.2" fill="#D4AF37"/><circle cx="70%" cy="36%" r=".7" fill="#E8ECF5"/><circle cx="84%" cy="46%" r="1" fill="#E8ECF5"/><circle cx="6%" cy="58%" r=".9" fill="#E8ECF5"/><circle cx="20%" cy="52%" r="1.1" fill="#7EB6E0"/><circle cx="42%" cy="44%" r=".8" fill="#E8ECF5"/><circle cx="64%" cy="50%" r="1" fill="#D4AF37"/><circle cx="78%" cy="58%" r=".8" fill="#E8ECF5"/><circle cx="90%" cy="64%" r="1.2" fill="#E8ECF5"/><circle cx="15%" cy="70%" r=".8" fill="#E8ECF5"/><circle cx="33%" cy="62%" r="1" fill="#7EB6E0"/><circle cx="52%" cy="56%" r=".9" fill="#E8ECF5"/><circle cx="68%" cy="66%" r="1.1" fill="#E8ECF5"/><circle cx="82%" cy="74%" r=".7" fill="#D4AF37"/><circle cx="10%" cy="84%" r="1" fill="#E8ECF5"/><circle cx="26%" cy="78%" r=".8" fill="#E8ECF5"/><circle cx="46%" cy="72%" r="1.2" fill="#E8ECF5"/><circle cx="60%" cy="80%" r=".9" fill="#7EB6E0"/><circle cx="75%" cy="88%" r="1" fill="#E8ECF5"/><circle cx="88%" cy="82%" r=".8" fill="#E8ECF5"/>
+</svg>
+
+<div class="panel">
+  <div class="head">
+    <div>
+      <div class="t1">面相星盤</div>
+      <div class="t2">Celestial Chart of the Digital Countenance</div>
+    </div>
+    <div class="who">
+      <div class="n">@@NICKNAME@@</div>
+      <div class="m">@@META@@</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- 罗盘 -->
+    <div class="wheel-anim"><div class="wheel-wrap" id="wheel">
+      <div class="wheel ring-1"></div>
+      <div class="wheel ring-2"></div>
+      <div class="wheel ring-3"></div>
+      <div class="wheel ring-4"></div>
+      <svg class="spokes" viewBox="0 0 100 100">
+        <line x1="50" y1="0" x2="50" y2="100"/><line x1="0" y1="50" x2="100" y2="50"/>
+        <line x1="15" y1="15" x2="85" y2="85"/><line x1="85" y1="15" x2="15" y2="85"/>
+        <line x1="50" y1="0" x2="30" y2="50"/><line x1="50" y1="0" x2="70" y2="50"/>
+        <line x1="50" y1="100" x2="30" y2="50"/><line x1="50" y1="100" x2="70" y2="50"/>
+        <line x1="0" y1="50" x2="50" y2="30"/><line x1="0" y1="50" x2="50" y2="70"/>
+        <line x1="100" y1="50" x2="50" y2="30"/><line x1="100" y1="50" x2="50" y2="70"/>
+      </svg>
+      <div class="center"><div class="c1">總評</div><div class="c2">@@CENTER_SUB@@</div></div>
+
+      @@HOUSES@@
+          </div></div>
+
+    <!-- 判词 -->
+    <div class="oracle">
+      <div class="ot">合盤判詞</div>
+      <div class="o-main">
+        @@ORACLE@@
+      </div>
+      <div class="stars-line"><span class="dot g"></span><span class="dot"></span><span class="dot g"></span><span class="dot"></span><span class="dot g"></span></div>
+      <div class="o-data">
+        @@DATA_ITEMS@@
+      </div>
+      <div class="fortune">
+        <p>天機：@@FORTUNE@@</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>@@FOOT@@</span>
+    <span>僅供娛樂 · 不構成人生建議</span>
+  </div>
+</div>
+
+<script>
+// 桌面鼠标视差：罗盘随光标轻微位移（触屏自动跳过）
+(function(){
+  var wheel = document.getElementById('wheel');
+  if(!wheel || !window.matchMedia('(pointer:fine)').matches) return;
+  var raf = null;
+  document.addEventListener('mousemove', function(e){
+    if(raf) return;
+    raf = requestAnimationFrame(function(){
+      var r = wheel.getBoundingClientRect();
+      var dx = (e.clientX - (r.left + r.width/2)) / r.width;
+      var dy = (e.clientY - (r.top + r.height/2)) / r.height;
+      wheel.style.transform = 'translate(' + (dx*10) + 'px,' + (dy*10) + 'px)';
+      raf = null;
+    });
+  });
+})();
+</script>
+</body>
+</html>

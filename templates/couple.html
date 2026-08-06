@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>缘分简历 · 相亲角版</title>
+<style>
+:root {
+  --paper: #F6F1E3;          /* 宣纸米白 */
+  --paper-2: #EFE7D3;        /* 略深一档纸 */
+  --cinnabar: #A93226;       /* 朱砂红 */
+  --cinnabar-deep: #7B241C;  /* 深朱砂 */
+  --ink: #2B2620;            /* 墨黑 */
+  --ink-soft: #6B6254;       /* 淡墨 */
+  --seal: #C0392B;           /* 印章红 */
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: "Songti SC","STSong","SimSun","Noto Serif SC",serif;
+  background: #3D3A34;
+  min-height: 100vh;
+  padding: 40px 16px;
+  display: flex; justify-content: center;
+}
+.paper {
+  width: 820px;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(255,255,255,.25), transparent 60%),
+    var(--paper);
+  color: var(--ink);
+  padding: 48px 52px 40px;
+  position: relative;
+  box-shadow: 0 12px 40px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.3);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.paper::after {
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background-image: var(--grain); opacity:.55;
+}
+.tape {
+  position:absolute; top:-14px; left:50%; transform:translateX(-50%) rotate(-2deg);
+  width:150px; height:34px;
+  background: rgba(220,190,120,.45);
+  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+  border-left:1px dashed rgba(0,0,0,.08); border-right:1px dashed rgba(0,0,0,.08);
+  z-index:2;
+}
+.masthead { text-align:center; border-bottom:3px double var(--ink); padding-bottom:14px; margin-bottom:6px; }
+.masthead .kicker { font-size:12px; letter-spacing:.6em; color:var(--ink-soft); margin-bottom:8px; text-indent:.6em; }
+.masthead h1 {
+  font-size:56px; letter-spacing:.42em; text-indent:.42em; font-weight:700;
+  color: var(--cinnabar-deep);
+}
+.masthead .date-line {
+  margin-top:10px; font-size:13px; color:var(--ink-soft);
+  display:flex; justify-content:space-between; align-items:center;
+  border-top:1px solid var(--ink); padding-top:8px;
+}
+.masthead .date-line span { letter-spacing:.18em; }
+.flag { color:var(--cinnabar); font-weight:700; }
+.duo { display:grid; grid-template-columns:1fr 1fr; gap:0; border:1.5px solid var(--ink); margin:22px 0; position:relative; }
+.duo .person { padding:20px 22px 16px; }
+.duo .person + .person { border-left:1.5px solid var(--ink); }
+.person .p-label { font-size:11px; letter-spacing:.5em; color:var(--cinnabar); font-weight:700; margin-bottom:8px; text-indent:.5em; }
+.person .p-name { font-size:26px; font-weight:700; letter-spacing:.1em; }
+.person .p-name small { font-size:13px; color:var(--ink-soft); font-weight:400; letter-spacing:.05em; margin-left:8px; }
+.person .p-tags { margin:10px 0 12px; display:flex; gap:6px; flex-wrap:wrap; }
+.person .p-tags i {
+  font-style:normal; font-size:11.5px; padding:2px 10px;
+  border:1px solid var(--ink); border-radius:0; color:var(--ink);
+  background: transparent; letter-spacing:.15em;
+}
+.person .p-tags i.hot { border-color: var(--cinnabar); color: var(--cinnabar); }
+.person .p-meta { font-size:13px; line-height:2.1; color:var(--ink-soft); }
+.person .p-meta b { color: var(--ink); font-weight:700; }
+.v-rl {
+  writing-mode: vertical-rl;
+  position:absolute; top:-8px; right:-30px;
+  font-size:15px; letter-spacing:.3em; color:var(--cinnabar); font-weight:700;
+}
+.section-title {
+  font-size:20px; font-weight:700; letter-spacing:.35em; text-indent:.35em;
+  margin:30px 0 16px; display:flex; align-items:center; gap:12px;
+}
+.section-title::before { content:"◆"; font-size:10px; color:var(--cinnabar); }
+.section-title::after { content:""; flex:1; border-top:1px solid var(--ink); }
+.dims { border:1px solid var(--ink); }
+.dim {
+  display:grid; grid-template-columns: 130px 1fr 90px;
+  align-items:center; padding:11px 18px; gap:16px;
+  border-bottom:1px solid #D8CFB8;
+}
+.dim:last-child { border-bottom:none; }
+.dim .d-name { font-size:15px; font-weight:700; letter-spacing:.2em; }
+.dim .d-bar { position:relative; height:14px; background:#E9E1CB; }
+.dim .d-bar::before {
+  content:""; position:absolute; inset:0;
+  background-image: repeating-linear-gradient(90deg, transparent 0 23.9%, rgba(43,38,32,.08) 23.9% 24%);
+}
+.dim .d-fill { height:100%; background: var(--cinnabar); position:relative; }
+.dim .d-fill::after {
+  content:""; position:absolute; right:-3px; top:-3px; bottom:-3px; width:6px;
+  background: var(--ink);
+}
+.dim .d-pct { text-align:right; font-size:17px; font-weight:700; font-variant-numeric: tabular-nums; }
+.dim .d-pct small { font-size:11px; color:var(--ink-soft); font-weight:400; margin-left:2px; }
+.dim.dim-fate .d-fill { background: var(--cinnabar-deep); }
+.dim .d-note { grid-column:2 / -1; font-size:12px; color:var(--ink-soft); line-height:1.7; margin-top:-6px; padding-bottom:2px; letter-spacing:.04em; }
+.score-zone { display:flex; align-items:center; justify-content:space-between; margin:34px 0 8px; gap:30px; }
+.score-left { flex:1; }
+.score-left .big { font-size:15px; letter-spacing:.3em; color:var(--ink-soft); margin-bottom:6px; }
+.score-left .verdict { font-size:30px; font-weight:700; letter-spacing:.12em; line-height:1.6; }
+.score-left .verdict em { font-style:normal; color:var(--cinnabar); }
+.score-left .sub { margin-top:10px; font-size:13px; line-height:2; color:var(--ink-soft); }
+.seal-wrap { flex-shrink:0; position:relative; width:150px; height:150px; }
+.seal {
+  width:150px; height:150px; border-radius:50%;
+  border:4px solid var(--seal); color:var(--seal);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  transform: rotate(-8deg);
+  background: radial-gradient(circle at 35% 30%, rgba(192,57,43,.08), transparent 60%);
+  box-shadow: inset 0 0 24px rgba(192,57,43,.12);
+}
+.seal .s-num { font-size:52px; font-weight:700; line-height:1; letter-spacing:-.02em; }
+.seal .s-unit { font-size:13px; letter-spacing:.35em; text-indent:.35em; margin-top:4px; }
+.seal .s-tag { font-size:12px; letter-spacing:.2em; margin-top:8px; border-top:1.5px solid var(--seal); padding-top:6px; }
+.advice { border:1.5px solid var(--ink); margin:14px 0; padding:16px 20px; position:relative; background: var(--paper-2); }
+.advice .a-num {
+  position:absolute; top:-11px; left:18px; background:var(--cinnabar); color:#F6F1E3;
+  width:24px; height:24px; border-radius:50%; font-size:13px; font-weight:700;
+  display:flex; align-items:center; justify-content:center; letter-spacing:0;
+}
+.advice p { font-size:14.5px; line-height:2.05; text-align:justify; text-wrap: pretty; }
+.footer { margin-top:30px; padding-top:14px; border-top:1px solid var(--ink); display:flex; justify-content:space-between; font-size:11px; color:var(--ink-soft); letter-spacing:.12em; }
+.footer .stamp-note { color:var(--cinnabar); }
+@media (max-width: 700px) {
+  body { padding:20px 8px; }
+  .paper { padding:34px 22px 30px; width:100%; }
+  .duo { grid-template-columns:1fr; }
+  .duo .person + .person { border-left:none; border-top:1.5px solid var(--ink); }
+  .dim { grid-template-columns: 100px 1fr 70px; gap:10px; padding:10px 12px; }
+  .score-zone { flex-direction:column-reverse; }
+  .masthead h1 { font-size:38px; letter-spacing:.3em; text-indent:.3em; }
+  .v-rl { display:none; }
+}
+</style>
+</head>
+<body>
+<div class="paper">
+  <div class="tape"></div>
+
+  <div class="masthead">
+    <div class="kicker">公园相亲角 · 微博数据版</div>
+    <h1>缘 分 简 历</h1>
+    <div class="date-line">
+      <span>@@DATE_CN@@</span>
+      <span class="flag">MATCHMAKING · @@MODE_EN@@</span>
+      <span>@@DATE_SHORT@@ 刊</span>
+    </div>
+  </div>
+
+  <div class="duo">
+    <div class="person">
+      <div class="p-label">壹 · 自 述</div>
+      <div class="p-name">@@MY_NICK@@<small>@@MY_ROLE@@</small></div>
+      <div class="p-tags">@@MY_TAGS@@</div>
+      <div class="p-meta">
+        活跃峰值 <b>@@MY_PEAKS@@ 时</b><br>
+        话题 <b>@@MY_TOPICS@@</b><br>
+        情绪 <b>@@MY_MOOD@@</b> · 原创率 <b>@@MY_ORIG@@%</b><br>
+        日均 <b>@@MY_DAILY@@ 条</b> · 均长 <b>@@MY_LEN@@ 字</b>
+      </div>
+    </div>
+    <div class="person">
+      <div class="p-label">@@OTHER_HEAD@@</div>
+      <div class="p-name">@@OTHER_NICK@@<small>@@OTHER_ROLE@@</small></div>
+      <div class="p-tags">@@OTHER_TAGS@@</div>
+      <div class="p-meta">
+        活跃峰值 <b>@@OTHER_PEAKS@@ 时</b><br>
+        话题 <b>@@OTHER_TOPICS@@</b><br>
+        情绪 <b>@@OTHER_MOOD@@</b> · 原创率 <b>@@OTHER_ORIG@@%</b><br>
+        日均 <b>@@OTHER_DAILY@@ 条</b> · 均长 <b>@@OTHER_LEN@@ 字</b>
+      </div>
+    </div>
+    <div class="v-rl">@@VRL_TAG@@</div>
+  </div>
+
+  <div class="section-title">八字批注</div>
+  <div class="dims">
+    @@DIMS@@
+  </div>
+
+  <div class="score-zone">
+    <div class="score-left">
+      <div class="big">合 盘 总 评</div>
+      <div class="verdict">@@VERDICT@@</div>
+      <div class="sub">@@VERDICT_SUB@@</div>
+    </div>
+    <div class="seal-wrap">
+      <div class="seal">
+        <div class="s-num">@@TOTAL@@</div>
+        <div class="s-unit">分 · 配</div>
+        <div class="s-tag">@@SEAL_TAG@@</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">媒婆点评</div>
+  @@ADVS@@
+
+  <div class="footer">
+    <span>数据基于公开微博采样 · 我方 @@MY_COUNT@@ 条 / 对方 @@OTHER_COUNT@@ 条</span>
+    <span class="stamp-note">© @@MY_NICK@@ · 仅供娱乐</span>
+  </div>
+</div>
+</body>
+</html>
