@@ -5,3 +5,5 @@ __pycache__/
 /pair_login_uid.json
 .venv/
 *.egg-info/
+results.tsv
+test-prompts.json
