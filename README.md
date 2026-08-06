@@ -28,6 +28,20 @@ python3 scripts/pair.py --other-uid <对方UID> --my-uid <我方UID>
 
 完整用法见 **[用户指南](USER-GUIDE.md)**。
 
+## 输出样本
+
+<table>
+<tr>
+  <td align="center" width="33%"><a href="screenshots/front-diagnosis.png"><img src="screenshots/front-diagnosis.png" width="100%" alt="面相诊断书"/></a>🔮 面相诊断书</td>
+  <td align="center" width="33%"><a href="screenshots/front-mingpan.png"><img src="screenshots/front-mingpan.png" width="100%" alt="星空罗盘"/></a>🔭 星空罗盘</td>
+  <td align="center" width="34%"><a href="screenshots/pair-couple.png"><img src="screenshots/pair-couple.png" width="100%" alt="情侣·相亲角"/></a>💑 情侣 · 相亲角</td>
+</tr>
+<tr>
+  <td align="center"><a href="screenshots/pair-business.png"><img src="screenshots/pair-business.png" width="100%" alt="商务·数据杂志"/></a>👔 商务 · 数据杂志</td>
+  <td align="center" colspan="2"><a href="screenshots/pair-friend.png"><img src="screenshots/pair-friend.png" width="50%" alt="朋友·电影片尾"/></a>🤝 朋友 · 电影片尾</td>
+</tr>
+</table>
+
 ## 设计思路
 
 这个 Skill 的出发点很简单：**微博是最诚实的社交数据源**——你发的每一条、转的每一次、凌晨三点敲的字，都在说你是谁、你和谁走得近。面相术和配对术是包装，核心是用数据分析还原那些你自己都没注意到的行为模式。
