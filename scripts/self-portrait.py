@@ -148,7 +148,7 @@ else:
     json.dump(posts, open(MY_CACHE, "w"), ensure_ascii=False)
     confirm_short("微博", len(posts), _a.count)
 if not posts:
-    raise RuntimeError("微博采集为空：请检查 weibo-skill 登录（≤100）或 CLI 套餐与 Token（>100）")
+    raise RuntimeError("微博采集为空：请检查 weibo-skill 登录（≤100）或 CLI 服务与 Token（>100）")
 print(f"{len(posts)} 条", file=sys.stderr)
 # 高精度随机种子：iSH 环境 os.urandom 采样可能秒级重复，纳秒+pid 保证每次输出文案不同
 random.seed(int(datetime.datetime.now().timestamp() * 1_000_000) ^ os.getpid())

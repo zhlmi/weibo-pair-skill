@@ -97,9 +97,9 @@ else:
     json.dump(my_posts, open(config.MY_CACHE, "w"), ensure_ascii=False)
     weibo_api.confirm_short("我方", len(my_posts), config.MY_COUNT)
 if not my_posts:
-    raise RuntimeError("我方微博采集为空：本人场景请检查 weibo-skill 登录；A×B 场景请检查 CLI 套餐与 UID")
+    raise RuntimeError("我方微博采集为空：本人场景请检查 weibo-skill 登录；A×B 场景请检查 CLI 服务与 UID")
 if not other_posts:
-    raise RuntimeError("对方微博采集为空：请检查对方 UID 是否正确、套餐权限是否足够（A×B 场景双方均需 CLI）")
+    raise RuntimeError("对方微博采集为空：请检查对方 UID 是否正确、服务是否已开通（A×B 场景双方均需 CLI）")
 print(f"我方 {len(my_posts)} 条", file=sys.stderr)
 
 # ================= 4. 七维分析 =================

@@ -64,7 +64,7 @@ metadata:
 ```
 - 🔴 停止等用户选。
 
-**费用（官方定价，详见 open.weibo.com/cli）**：FREE 免费 / BASIC ¥29·3000 / PLUS ¥69·7500 / PRO ¥299·32000 / ULTRA ¥899·100000 Credits。当前套餐以 `weibo-cli doctor` 为准。
+**费用（按量付费，官方口径见 open.weibo.com/cli，以 `weibo-cli doctor` / `weibo-cli me` 为准）**：2026-08 官方套餐体系改版后，接口不再按套餐档位锁定——开通服务（formal_active）后全部 67 个接口全量开放，按 Credits 按量计费，余额以 `weibo-cli me` 的 Credits 为准。
 
 **Step 2 · 对象与关系背景**：
 - 自画像：无需对象。
